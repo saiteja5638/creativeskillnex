@@ -8,6 +8,7 @@ import CourseDetails from './pages/CourseDetails.jsx'
 import Upskill from './pages/Upskill.jsx'
 import CareerJobs from './pages/CareerJobs.jsx'
 import CourseFinderWizard from './pages/CourseFinderWizard.jsx'
+import DemoRegistrationWizard from './pages/DemoRegistrationWizard.jsx'
 import SignUp from './pages/SignUp.jsx'
 import SignIn from './pages/SignIn.jsx'
 import NotFound from './pages/NotFound.jsx'
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
             <Route path="/career-finder" element={<CourseFinderWizard />} />
+          <Route path="/demo-registration" element={<DemoRegistrationWizard />} />
           <Route path="/courses/:courseName" element={<CourseDetails />} />
           <Route path="/career-jobs" element={<CareerJobs />} />
           <Route path="/signup" element={<SignUp />} />

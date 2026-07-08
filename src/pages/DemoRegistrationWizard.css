@@ -1,0 +1,367 @@
+.demo-wizard {
+  padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
+  min-height: 70vh;
+}
+
+.demo-wizard__container {
+  max-width: 760px;
+}
+
+.demo-wizard__head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 2.4rem;
+}
+
+.demo-wizard__head .eyebrow {
+  justify-content: center;
+}
+
+.demo-wizard__head h1 {
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
+}
+
+.demo-wizard__head p {
+  color: var(--text);
+  max-width: 480px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.demo-wizard__card {
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.demo-wizard__step-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.demo-wizard__pill {
+  flex-shrink: 0;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(124, 92, 255, 0.18);
+  color: var(--violet-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.demo-wizard__step-badge h2 {
+  font-size: 1.15rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Details form (step 1) */
+.details-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.field .required {
+  color: #fb7185;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-h);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.field select option,
+.field select optgroup {
+  background: var(--surface);
+  color: var(--text-h);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--violet-soft);
+}
+
+.field input::placeholder {
+  color: var(--text-dim);
+}
+
+/* Option cards (interest, mode of learning, mode of attendance) */
+.option-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.option-grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.option-grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.3rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.option-card:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-2px);
+}
+
+.option-card.is-selected {
+  border-color: var(--violet-soft);
+  background: rgba(124, 92, 255, 0.12);
+  color: var(--text-h);
+  box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.4);
+}
+
+.option-card__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--text-h);
+}
+
+.option-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.option-card__hint {
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* Experience slider (step 2) */
+.trait-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.trait-row__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.trait-row__value {
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.trait-row__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+
+.trait-row input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+}
+
+.trait-row input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  box-shadow: 0 4px 14px -2px rgba(124, 92, 255, 0.7);
+  cursor: pointer;
+  border: 2px solid var(--void);
+}
+
+.trait-row input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 4px 14px -2px rgba(124, 92, 255, 0.7);
+  cursor: pointer;
+  border: 2px solid var(--void);
+}
+
+/* Preferred timings (step 5) */
+.commit-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.chip:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.chip.is-selected {
+  border-color: var(--violet-soft);
+  background: rgba(124, 92, 255, 0.16);
+  color: var(--text-h);
+}
+
+.field__error {
+  font-size: 0.8rem;
+  color: #fb7185;
+  margin-top: 0.3rem;
+}
+
+.field__error--center {
+  text-align: center;
+}
+
+/* Submit + nav */
+.demo-wizard__submit {
+  width: 100%;
+  margin-top: 1.4rem;
+}
+
+.demo-wizard__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.demo-wizard__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.demo-wizard__nav .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Success screen */
+.demo-success {
+  padding: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.demo-success__art {
+  margin-bottom: 0.4rem;
+}
+
+.demo-success__eyebrow {
+  justify-content: center;
+}
+
+.demo-success h1 {
+  font-size: clamp(1.7rem, 3.2vw, 2.2rem);
+}
+
+.demo-success p {
+  color: var(--text);
+  max-width: 460px;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.demo-success__note {
+  color: var(--text-dim);
+  font-size: 0.88rem !important;
+}
+
+.demo-success__actions {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .demo-wizard__nav {
+    flex-direction: column-reverse;
+  }
+
+  .demo-wizard__nav .btn {
+    width: 100%;
+  }
+
+  .demo-success__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .demo-success__actions .btn {
+    width: 100%;
+  }
+}

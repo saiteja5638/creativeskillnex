@@ -3,7 +3,7 @@
 
 export const slides = [
   {
-    image: '/images/saiteja1.jpg',
+    image: 'https://etimg.etb2bimg.com/photo/118139529.cms',
     eyebrow: 'AI-Matched Career Paths',
     title: 'Find the course that actually fits you',
     text: 'From SAP to Gen-AI, we match your interests to the right track.',
@@ -15,7 +15,7 @@ export const slides = [
     text: 'Real-time trending frameworks across tech, finance, HR & more.',
   },
   {
-    image: '/images/image3.jpg',
+    image: 'https://cdn.prod.website-files.com/5f348cefc28f736422d5b00d/64e303239b4c9c5bd8a39c2b_1.jpeg',
     eyebrow: 'From Learner to Hire',
     title: 'Upskill, apply, and land the role',
     text: 'Courses, mentorship and job leads — all in one place.',

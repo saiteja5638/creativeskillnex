@@ -59,8 +59,8 @@ function Carousel() {
               <a href="#find-course" className="btn btn-primary">
                 Find your course
               </a>
-              <a href="#trending" className="btn btn-ghost">
-                See trending skills
+              <a href="/demo-registration" className="btn btn-ghost">
+               Register for a demo
               </a>
             </div>
           </div>
