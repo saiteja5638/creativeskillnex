@@ -1,0 +1,396 @@
+.finder-wizard {
+  padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
+  min-height: 70vh;
+}
+
+.finder-wizard__container {
+  max-width: 760px;
+}
+
+.finder-wizard__head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 2.4rem;
+}
+
+.finder-wizard__head .eyebrow {
+  justify-content: center;
+}
+
+.finder-wizard__head h1 {
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
+}
+
+.finder-wizard__head p {
+  color: var(--text);
+  max-width: 460px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.finder-wizard__card {
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.finder-wizard__step-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.finder-wizard__pill {
+  flex-shrink: 0;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(124, 92, 255, 0.18);
+  color: var(--violet-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.finder-wizard__step-badge h2 {
+  font-size: 1.15rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.finder-wizard__hint {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* Option cards (steps 1 & 2) */
+.option-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.option-grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.option-grid--5 {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.3rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.option-card:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-2px);
+}
+
+.option-card.is-selected {
+  border-color: var(--violet-soft);
+  background: rgba(124, 92, 255, 0.12);
+  color: var(--text-h);
+  box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.4);
+}
+
+.option-card__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  color: var(--text-h);
+}
+
+.option-card__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Sliders (step 3 & 4) */
+.trait-list,
+.commit-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.trait-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.trait-row__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.trait-row__value {
+  font-weight: 700;
+  color: var(--text-h);
+  font-variant-numeric: tabular-nums;
+}
+
+.trait-row input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line);
+  outline: none;
+}
+
+.trait-row input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  box-shadow: 0 4px 14px -2px rgba(124, 92, 255, 0.7);
+  cursor: pointer;
+  border: 2px solid var(--void);
+}
+
+.trait-row input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 4px 14px -2px rgba(124, 92, 255, 0.7);
+  cursor: pointer;
+  border: 2px solid var(--void);
+}
+
+/* Step 5 — details form */
+.details-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.finder-wizard__submit {
+  width: 100%;
+  margin-top: 0.3rem;
+}
+
+.finder-wizard__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.field__error {
+  font-size: 0.8rem;
+  color: #fb7185;
+  margin-top: 0.5rem;
+}
+
+.field__error--center {
+  text-align: center;
+}
+
+/* Nav buttons */
+.finder-wizard__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.finder-wizard__nav .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.finder-wizard__footnote {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  margin-top: 1.6rem;
+}
+
+.finder-wizard__footnote a {
+  color: var(--violet-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Results */
+.finder-wizard__results {
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.finder-wizard__results h2 {
+  font-size: 1.4rem;
+}
+
+.recommendation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recommendation-card {
+  padding: 1.2rem 1.4rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.recommendation-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.recommendation-card__head h3 {
+  font-size: 1.05rem;
+}
+
+.recommendation-card__score {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.12);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.recommendation-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin-bottom: 0.6rem;
+}
+
+.recommendation-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.recommendation-card__reasons {
+  list-style: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.recommendation-card__reasons li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.recommendation-card__reasons li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+}
+
+.recommendation-card__pricing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.recommendation-card__plan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  min-width: 100px;
+}
+
+.recommendation-card__plan-pace {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+
+.recommendation-card__plan-months {
+  font-size: 0.78rem;
+  color: var(--text);
+}
+
+.recommendation-card__plan-price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-h);
+  font-size: 0.98rem;
+}
+
+.recommendation-card__link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--violet-soft);
+  text-decoration: none;
+}
+
+.finder-wizard__raw {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .finder-wizard__nav {
+    flex-direction: column-reverse;
+  }
+
+  .finder-wizard__nav .btn {
+    width: 100%;
+  }
+}

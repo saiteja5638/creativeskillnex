@@ -1,0 +1,224 @@
+.finder {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  overflow: hidden;
+}
+
+.finder::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 140%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 180, 84, 0.14) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.finder__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.finder__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.finder__title {
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  max-width: 560px;
+}
+
+.finder__text {
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.finder__text em {
+  color: var(--amber-soft);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.finder__text--muted {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.finder__cta {
+  margin-top: 0.6rem;
+  align-self: flex-start;
+}
+
+.finder__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.orbit {
+  position: relative;
+  width: min(360px, 80vw);
+  height: min(360px, 80vw);
+  display: grid;
+  place-items: center;
+}
+
+.orbit__core {
+  position: absolute;
+  z-index: 3;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-h);
+  box-shadow: 0 0 0 1px var(--glass-border), 0 0 60px -10px rgba(124, 92, 255, 0.6);
+  animation: pulseGlow 3.2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px var(--glass-border), 0 0 50px -12px rgba(124, 92, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 1px var(--glass-border), 0 0 80px -8px rgba(34, 211, 238, 0.55);
+  }
+}
+
+.orbit__ring {
+  position: absolute;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+}
+
+.orbit__ring--1 {
+  width: 240px;
+  height: 240px;
+  animation: spin 18s linear infinite;
+}
+
+.orbit__ring--2 {
+  width: 340px;
+  height: 340px;
+  animation: spin 26s linear infinite reverse;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit__node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.orbit__ring--1 .orbit__node {
+  transform: rotate(calc(var(--i) * 120deg)) translateY(-120px);
+}
+
+.orbit__ring--2 .orbit__node {
+  transform: rotate(calc(var(--i) * 180deg)) translateY(-170px);
+}
+
+.orbit__node-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--glass-border);
+  color: var(--text-h);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.6);
+  animation: counterSpin 18s linear infinite;
+}
+
+.orbit__ring--2 .orbit__node-label {
+  animation: counterSpinReverse 26s linear infinite;
+}
+
+@keyframes counterSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+@keyframes counterSpinReverse {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .finder__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finder__cta {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .finder__visual {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .orbit {
+    width: 280px;
+    height: 280px;
+  }
+
+  .orbit__ring--1 {
+    width: 190px;
+    height: 190px;
+  }
+
+  .orbit__ring--2 {
+    width: 260px;
+    height: 260px;
+  }
+
+  .orbit__ring--1 .orbit__node {
+    transform: rotate(calc(var(--i) * 120deg)) translateY(-95px);
+  }
+
+  .orbit__ring--2 .orbit__node {
+    transform: rotate(calc(var(--i) * 180deg)) translateY(-130px);
+  }
+}
