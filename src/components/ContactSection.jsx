@@ -7,23 +7,11 @@ const CONTACT_LINKS = [
   {
     label: 'Email',
     value: 'hello@creativeskillnexus.com',
-    href: 'mailto:hello@creativeskillnexus.com',
+    href: 'mailto:creativeskillnexus@gmail.com',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
         <rect x="3" y="5" width="18" height="14" rx="2.5" />
         <path d="m4 7 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    label: 'LinkedIn',
-    value: '/company/creativeskillnexus',
-    href: 'https://linkedin.com/company/creativeskillnexus',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="3" y="3" width="18" height="18" rx="3" />
-        <circle cx="8" cy="8.5" r="0.5" fill="currentColor" />
-        <path d="M7.5 11v6M7.5 11v6M12 17v-3.5c0-1.5 1-2.5 2.3-2.5s2.2 1 2.2 2.5V17M12 11v6" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -38,17 +26,7 @@ const CONTACT_LINKS = [
         <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
       </svg>
     ),
-  },
-  {
-    label: 'Facebook',
-    value: '/creativeskillnexus',
-    href: 'https://facebook.com/creativeskillnexus',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M15 8.5h-2c-.8 0-1.5.7-1.5 1.5v2h3.3l-.4 3H11.5V21H8.5v-6H6.5v-3h2V9.7c0-2.3 1.5-4.2 4-4.2h2.5v3Z" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
+  }
 ]
 
 const initialForm = { name: '', contact: '', email: '', concern: '' }
