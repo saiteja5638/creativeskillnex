@@ -30,7 +30,7 @@ function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner container">
-        <NavLink to="/" className="navbar__logo" onClick={() => setOpen(false)}>
+        <NavLink to="/creativeskillnex/" className="navbar__logo" onClick={() => setOpen(false)}>
           <span className="navbar__logo-mark">CSN</span>
           <span className="navbar__logo-text">
             CreativeSkill<span className="gradient-text">Nexus</span>
@@ -53,10 +53,10 @@ function Navbar() {
         </nav>
 
         <div className="navbar__actions navbar__actions--desktop">
-          <NavLink to="/signin" className="btn btn-ghost btn-sm">
+          <NavLink to="/creativeskillnex/signin" className="btn btn-ghost btn-sm">
             Sign in
           </NavLink>
-          <NavLink to="/signup" className="btn btn-primary btn-sm">
+          <NavLink to="/creativeskillnex/signup" className="btn btn-primary btn-sm">
             Sign up
           </NavLink>
         </div>
@@ -91,14 +91,14 @@ function Navbar() {
         </nav>
         <div className="navbar__actions navbar__actions--mobile">
           <NavLink
-            to="/signin"
+            to="/creativeskillnex/signin"
             className="btn btn-ghost"
             onClick={() => setOpen(false)}
           >
             Sign in
           </NavLink>
           <NavLink
-            to="/signup"
+            to="/creativeskillnex/signup"
             className="btn btn-primary"
             onClick={() => setOpen(false)}
           >

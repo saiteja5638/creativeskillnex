@@ -9,7 +9,7 @@ export const slides = [
     text: 'From SAP to Gen-AI, we match your interests to the right track.',
   },
   {
-    image: '/images/saiteja2.jpg',
+    image: 'https://miro.medium.com/0*1qvBk2e9d0PiFE-V.jpg',
     eyebrow: 'Live Industry Trends',
     title: 'Learn what the market is hiring for',
     text: 'Real-time trending frameworks across tech, finance, HR & more.',

@@ -6,5 +6,9 @@ import react from '@vitejs/plugin-react'
 // https://<username>.github.io/CreativeSkillNexus/
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: '/creativeskillnex',
 })
+
+
+
+
