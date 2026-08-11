@@ -25,7 +25,7 @@ function CourseFinder() {
             hired, so you&rsquo;re following a route that has already worked,
             not a guess.
           </p>
-          <a href="/creativeskillnex/career-finder" className="btn btn-warm finder__cta">
+          <a href="/career-finder" className="btn btn-warm finder__cta">
             Find Career Course
           </a>
         </Reveal>

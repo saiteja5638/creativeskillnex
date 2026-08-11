@@ -15,10 +15,10 @@ function Footer() {
           Find the course that fits you — not the other way around.
         </p>
         <nav className="footer__links">
-          <NavLink to="/creativeskillnex">Home</NavLink>
-          <NavLink to="/creativeskillnex/courses">Courses</NavLink>
-          <NavLink to="/creativeskillnex/upskill">Upskill</NavLink>
-          <NavLink to="/creativeskillnex/career-jobs">Career Jobs</NavLink>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/courses">Courses</NavLink>
+          <NavLink to="/upskill">Upskill</NavLink>
+          <NavLink to="/career-jobs">Career Jobs</NavLink>
         </nav>
         <p className="footer__copy">
           &copy; {new Date().getFullYear()} CreativeSkillNexus. All rights reserved.
