@@ -1,7 +1,9 @@
-import { API_BASE_URL, formatDate } from './config'
+import { API_BASE_URL, formatDate ,generateBearerToken} from './config'
 
 // Points at the SAP BTP CAPM service that creates new user accounts.
 export const CREATE_SIGNUP_USER_URL = `${API_BASE_URL}/createSignupUser`
+const token = await generateBearerToken();
+
 
 /**
  * Submits a new signup entry to the createSignupUser CAPM endpoint.
@@ -24,6 +26,7 @@ export async function createSignupUser({ fullName, email, contact, password }) {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+           Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(payload),
   })

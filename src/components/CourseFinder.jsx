@@ -1,5 +1,6 @@
 import Reveal from './Reveal'
 import './CourseFinder.css'
+import { Link } from "react-router-dom";
 
 const ORBIT_SKILLS = ['SAP', 'React', 'AI/ML', 'Data', 'Finance', 'HR']
 
@@ -25,9 +26,9 @@ function CourseFinder() {
             hired, so you&rsquo;re following a route that has already worked,
             not a guess.
           </p>
-          <a href="/career-finder" className="btn btn-warm finder__cta">
+          <Link to="/career-finder" className="btn btn-warm finder__cta">
             Find Career Course
-          </a>
+          </Link>
         </Reveal>
 
         <Reveal delay="0.15s" className="finder__visual" as="div">

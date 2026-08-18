@@ -1,0 +1,523 @@
+/* ============================================================
+   CreativeSkillNexus — About page
+   Palette: deep indigo-night surface, teal signal accent
+   (live connection / real-time), amber accent (human, founder
+   story warmth). Display face is geometric/technical, body is
+   a plain workhorse sans, mono is reserved for eyebrows and the
+   "transparency" labels — nodding to the API/docs the founder
+   says he never had.
+   ============================================================ */
+
+.csn-about {
+  --csn-bg: #0b1220;
+  --csn-surface: #101a2e;
+  --csn-surface-raised: #16223b;
+  --csn-border: rgba(146, 173, 209, 0.14);
+  --csn-border-strong: rgba(146, 173, 209, 0.28);
+  --csn-text: #eaf2f7;
+  --csn-text-muted: #90a4c2;
+  --csn-teal: #4fd1c5;
+  --csn-teal-ink: #06201c;
+  --csn-amber: #f4a259;
+  --csn-amber-ink: #2e1a06;
+
+  --csn-font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --csn-font-body: "Inter", "Segoe UI", sans-serif;
+  --csn-font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  background: var(--csn-bg);
+  color: var(--csn-text);
+  font-family: var(--csn-font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.csn-about * {
+  box-sizing: border-box;
+}
+
+.csn-about a {
+  color: inherit;
+}
+
+.csn-about__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.csn-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--csn-font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--csn-teal);
+}
+
+.csn-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--csn-teal);
+}
+
+/* ---------- Hero ---------- */
+
+.csn-hero {
+  padding: 96px 0 72px;
+  border-bottom: 1px solid var(--csn-border);
+}
+
+.csn-hero__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.csn-hero h1 {
+  font-family: var(--csn-font-display);
+  font-weight: 600;
+  font-size: clamp(32px, 4.4vw, 52px);
+  line-height: 1.12;
+  margin: 18px 0 20px;
+  letter-spacing: -0.01em;
+}
+
+.csn-hero h1 em {
+  font-style: normal;
+  color: var(--csn-teal);
+}
+
+.csn-hero p.csn-lede {
+  font-size: 18px;
+  color: var(--csn-text-muted);
+  max-width: 46ch;
+  margin: 0 0 32px;
+}
+
+.csn-hero__ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.csn-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-family: var(--csn-font-body);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.csn-btn:hover {
+  transform: translateY(-1px);
+}
+
+.csn-btn--primary {
+  background: var(--csn-teal);
+  color: var(--csn-teal-ink);
+}
+
+.csn-btn--primary:hover {
+  background: #6ddccf;
+}
+
+.csn-btn--ghost {
+  background: transparent;
+  border-color: var(--csn-border-strong);
+  color: var(--csn-text);
+}
+
+.csn-btn--ghost:hover {
+  border-color: var(--csn-teal);
+  color: var(--csn-teal);
+}
+
+/* Founder card inside hero */
+
+.csn-founder-card {
+  background: var(--csn-surface);
+  border: 1px solid var(--csn-border);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.csn-founder-card__photo {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--csn-teal);
+  margin-bottom: 18px;
+  background: var(--csn-surface-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.csn-founder-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.csn-founder-card__photo span {
+  font-family: var(--csn-font-display);
+  font-size: 34px;
+  color: var(--csn-teal);
+}
+
+.csn-founder-card h3 {
+  font-family: var(--csn-font-display);
+  font-size: 19px;
+  margin: 0 0 4px;
+}
+
+.csn-founder-card__role {
+  font-size: 13.5px;
+  color: var(--csn-text-muted);
+  margin: 0 0 16px;
+}
+
+.csn-founder-card__linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--csn-font-mono);
+  font-size: 12.5px;
+  color: var(--csn-teal);
+  border: 1px solid var(--csn-border-strong);
+  border-radius: 999px;
+  padding: 7px 14px;
+  text-decoration: none;
+}
+
+.csn-founder-card__linkedin:hover {
+  border-color: var(--csn-teal);
+}
+
+/* ---------- Story / the gap ---------- */
+
+.csn-story {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--csn-border);
+}
+
+.csn-story__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+}
+
+.csn-story h2 {
+  font-family: var(--csn-font-display);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.2;
+  margin: 16px 0 0;
+  max-width: 16ch;
+}
+
+.csn-story__body p {
+  font-size: 16.5px;
+  color: var(--csn-text-muted);
+  margin: 0 0 18px;
+}
+
+.csn-story__body strong {
+  color: var(--csn-text);
+  font-weight: 600;
+}
+
+.csn-pullquote {
+  border-left: 2px solid var(--csn-amber);
+  padding: 4px 0 4px 22px;
+  margin: 26px 0;
+  font-family: var(--csn-font-display);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--csn-text);
+}
+
+.csn-missing-list {
+  list-style: none;
+  padding: 0;
+  margin: 22px 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+}
+
+.csn-missing-list li {
+  font-family: var(--csn-font-mono);
+  font-size: 13px;
+  color: var(--csn-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.csn-missing-list li::before {
+  content: "×";
+  color: #e2685f;
+  font-weight: 700;
+}
+
+/* ---------- Signature: connection diagram ---------- */
+
+.csn-connection {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--csn-border);
+  text-align: center;
+}
+
+.csn-connection h2 {
+  font-family: var(--csn-font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  margin: 16px auto 8px;
+  max-width: 24ch;
+}
+
+.csn-connection p {
+  color: var(--csn-text-muted);
+  max-width: 52ch;
+  margin: 0 auto 48px;
+  font-size: 16px;
+}
+
+.csn-connection__diagram {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  height: auto;
+}
+
+/* ---------- Differentiators ---------- */
+
+.csn-features {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--csn-border);
+}
+
+.csn-features h2 {
+  font-family: var(--csn-font-display);
+  font-size: clamp(26px, 3vw, 34px);
+  margin: 16px 0 40px;
+  max-width: 20ch;
+}
+
+.csn-features__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--csn-border);
+  border: 1px solid var(--csn-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.csn-feature {
+  background: var(--csn-surface);
+  padding: 30px 24px;
+}
+
+.csn-feature__index {
+  font-family: var(--csn-font-mono);
+  font-size: 12px;
+  color: var(--csn-teal);
+  margin-bottom: 18px;
+  display: block;
+}
+
+.csn-feature h3 {
+  font-family: var(--csn-font-display);
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+
+.csn-feature p {
+  font-size: 14px;
+  color: var(--csn-text-muted);
+  margin: 0;
+}
+
+/* ---------- Transparency band ---------- */
+
+.csn-transparency {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--csn-border);
+}
+
+.csn-transparency__panel {
+  background: var(--csn-surface);
+  border: 1px solid var(--csn-border);
+  border-radius: 16px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.csn-transparency h2 {
+  font-family: var(--csn-font-display);
+  font-size: clamp(22px, 2.6vw, 28px);
+  margin: 14px 0 12px;
+}
+
+.csn-transparency p {
+  color: var(--csn-text-muted);
+  font-size: 15.5px;
+  margin: 0;
+}
+
+.csn-transparency__badge {
+  background: var(--csn-amber);
+  color: var(--csn-amber-ink);
+  font-family: var(--csn-font-mono);
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.csn-trainer-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.csn-trainer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--csn-surface-raised);
+  border: 1px solid var(--csn-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+}
+
+.csn-trainer-row span:first-child {
+  color: var(--csn-text);
+  font-weight: 600;
+}
+
+.csn-trainer-row a {
+  font-family: var(--csn-font-mono);
+  color: var(--csn-teal);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+/* ---------- Closing CTA ---------- */
+
+.csn-cta {
+  padding: 96px 0 110px;
+  text-align: center;
+}
+
+.csn-cta h2 {
+  font-family: var(--csn-font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 16px 0 16px;
+}
+
+.csn-cta p {
+  color: var(--csn-text-muted);
+  max-width: 46ch;
+  margin: 0 auto 34px;
+  font-size: 16px;
+}
+
+.csn-cta__ctas {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 960px) {
+  .csn-hero__grid,
+  .csn-story__grid,
+  .csn-transparency__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .csn-hero__grid {
+    gap: 40px;
+  }
+
+  .csn-hero {
+    padding: 64px 0 48px;
+  }
+
+  .csn-founder-card {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .csn-features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .csn-about__inner {
+    padding: 0 18px;
+  }
+
+  .csn-hero {
+    padding: 52px 0 40px;
+  }
+
+  .csn-hero p.csn-lede {
+    font-size: 16px;
+  }
+
+  .csn-hero__ctas .csn-btn,
+  .csn-cta__ctas .csn-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .csn-story,
+  .csn-connection,
+  .csn-features,
+  .csn-transparency,
+  .csn-cta {
+    padding: 56px 0;
+  }
+
+  .csn-missing-list {
+    grid-template-columns: 1fr;
+  }
+
+  .csn-features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .csn-transparency__panel {
+    padding: 26px;
+  }
+}

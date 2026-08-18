@@ -1,7 +1,8 @@
-import { API_BASE_URL } from './config'
+import { API_BASE_URL, generateBearerToken } from './config'
 
 export const FIND_RIGHT_COURSE_URL = `${API_BASE_URL}/findRightCourse`
 
+const token = await generateBearerToken();
 /**
  * Calls the AI course-matching endpoint.
  *
@@ -37,8 +38,9 @@ export async function findRightCourse({
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+           Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify(payload),
+ body: JSON.stringify(payload)
   })
 
   if (!response.ok) {

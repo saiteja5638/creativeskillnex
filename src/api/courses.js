@@ -1,11 +1,16 @@
-import { API_BASE_URL } from './config'
+import { API_BASE_URL, generateBearerToken } from './config'
 
 export const COURSES_URL = `${API_BASE_URL}/Courses`
 export const COURSES_HIERARCHY_URL = `${API_BASE_URL}/CoursesHirarchy()`
+const token = await generateBearerToken();
+
 
 async function getJson(url) {
   const response = await fetch(url, {
-    headers: { Accept: 'application/json' },
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`
+    },
   })
 
   if (!response.ok) {

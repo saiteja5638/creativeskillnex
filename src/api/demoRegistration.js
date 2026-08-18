@@ -1,8 +1,9 @@
-import { API_BASE_URL, formatDate } from './config'
+import { API_BASE_URL, formatDate, generateBearerToken } from './config'
 
 // Points at the SAP BTP CAPM service endpoint that creates a demo
 // registration entry.
 export const DEMO_REGISTRATION_URL = `${API_BASE_URL}/demoRegistration`
+const token = await generateBearerToken();
 
 /**
  * Submits a demo registration to the demoRegistration CAPM endpoint.
@@ -48,6 +49,7 @@ export async function submitDemoRegistration({
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(payload),
   })

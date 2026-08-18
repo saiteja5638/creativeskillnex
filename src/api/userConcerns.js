@@ -1,7 +1,8 @@
-import { API_BASE_URL, formatDate } from './config'
+import { API_BASE_URL, formatDate, generateBearerToken } from './config'
 
 // Points at the SAP BTP CAPM service that stores contact-form submissions.
 export const USER_CONCERNS_URL = `${API_BASE_URL}/UserConcerns`
+const token = await generateBearerToken();
 
 /**
  * Submits a contact-form entry to the UserConcerns CAPM endpoint.
@@ -21,6 +22,7 @@ export async function submitUserConcern({ name, contact, email, concern }) {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(payload),
   })

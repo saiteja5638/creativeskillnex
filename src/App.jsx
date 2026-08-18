@@ -13,6 +13,9 @@ import SignUp from './pages/SignUp.jsx'
 import SignIn from './pages/SignIn.jsx'
 import NotFound from './pages/NotFound.jsx'
 import './App.css'
+import About from './pages/About.jsx'
+import Career from './pages/Career.jsx'
+import JobPulse from './pages/JobPulse.jsx'
 
 function App() {
   return (
@@ -23,13 +26,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
+            <Route path="/career" element={<Career />} />
+           <Route path="/about" element={<About />} />
             <Route path="/career-finder" element={<CourseFinderWizard />} />
+             <Route path="/OpportunityNexus" element={<JobPulse />} />
           <Route path="/demo-registration" element={<DemoRegistrationWizard />} />
           <Route path="/courses/:courseName" element={<CourseDetails />} />
           <Route path="/career-jobs" element={<CareerJobs />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          {/* Add more routes here as you build them out */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

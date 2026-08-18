@@ -9,17 +9,13 @@ import {
   EXPERIENCE_DEFAULT,
   formatExperience,
   INTERESTED_IN_OPTIONS,
-  MODE_OF_LEARNING_OPTIONS,
-  PREFERRED_DAY_OPTIONS,
-  PREFERRED_TIME_SLOTS,
-  MODE_OF_ATTENDANCE_OPTIONS,
   NAME_PATTERN,
   EMAIL_PATTERN,
   PHONE_PATTERN,
 } from '../data/demoRegistrationConfig'
 import './DemoRegistrationWizard.css'
 
-const TOTAL_STEPS = 6
+const TOTAL_STEPS = 4
 
 const ICONS = {
   code: (
@@ -47,26 +43,83 @@ const ICONS = {
       <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9Z" />
     </svg>
   ),
-  building: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="4" y="3" width="10" height="18" rx="1" />
-      <rect x="14" y="9" width="6" height="12" rx="1" />
-      <path d="M7 7h1M10 7h1M7 11h1M10 11h1M7 15h1M10 15h1" strokeLinecap="round" />
-    </svg>
-  ),
-  video: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="2.5" y="6" width="13" height="12" rx="2" />
-      <path d="m15.5 10.5 6-3.2v9.4l-6-3.2" strokeLinejoin="round" />
-    </svg>
-  ),
-  pin: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" strokeLinejoin="round" />
-      <circle cx="12" cy="9.5" r="2.5" />
-    </svg>
-  ),
 }
+
+// ---- Week / slot helpers -------------------------------------------------
+
+const WEEKDAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const MONTH_LABELS = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+]
+
+const WEEKDAY_SLOTS = ['9:00 AM', '6:00 PM', '9:30 PM']
+const WEEKEND_SLOTS = [
+  '8:30 AM', '10:00 AM', '12:00 PM', '2:00 PM',
+  '4:00 PM', '6:00 PM', '9:00 PM', '11:00 PM',
+]
+
+// Returns the 7 Date objects for the current week, Monday through Sunday.
+function getCurrentWeekDates() {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const dayIndex = today.getDay() // 0 = Sun ... 6 = Sat
+  const mondayOffset = (dayIndex + 6) % 7 // days since Monday
+  const monday = new Date(today)
+  monday.setDate(today.getDate() - mondayOffset)
+
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    return d
+  })
+}
+
+function isSameDay(a, b) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  )
+}
+
+function isPastDay(date) {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return date < today
+}
+
+// "9:00 AM" / "12:00 PM" -> minutes since midnight, for comparison/filtering.
+function slotToMinutes(slot) {
+  const [time, period] = slot.split(' ')
+  let [h, m] = time.split(':').map(Number)
+  if (period === 'PM' && h !== 12) h += 12
+  if (period === 'AM' && h === 12) h = 0
+  return h * 60 + m
+}
+
+// Weekday -> 3 slots, Sat/Sun -> full slot list. If the date is today,
+// any slot whose time has already passed is filtered out.
+function getSlotsForDate(date) {
+  const dayIndex = date.getDay()
+  const isWeekend = dayIndex === 0 || dayIndex === 6
+  const baseSlots = isWeekend ? WEEKEND_SLOTS : WEEKDAY_SLOTS
+
+  const now = new Date()
+  if (!isSameDay(date, now)) return baseSlots
+
+  const nowMinutes = now.getHours() * 60 + now.getMinutes()
+  return baseSlots.filter((slot) => slotToMinutes(slot) > nowMinutes)
+}
+
+function formatDateLabel(date) {
+  const dd = String(date.getDate()).padStart(2, '0')
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const yyyy = date.getFullYear()
+  return `${dd}-${mm}-${yyyy}`
+}
+
+// ---------------------------------------------------------------------------
 
 const initialForm = {
   name: '',
@@ -75,10 +128,8 @@ const initialForm = {
   background: '',
   experience: EXPERIENCE_DEFAULT,
   interestedIn: '',
-  modeOfLearning: '',
-  preferredDays: [],
-  preferredSlots: [],
-  modeOfAttendance: '',
+  selectedDate: null, // Date object
+  selectedSlot: '',
 }
 
 function DemoRegistrationWizard() {
@@ -89,16 +140,20 @@ function DemoRegistrationWizard() {
   const [submitError, setSubmitError] = useState('')
   const [submitted, setSubmitted] = useState(false)
 
+  const weekDates = getCurrentWeekDates()
+
   const setField = (field, value) => setForm((f) => ({ ...f, [field]: value }))
 
-  const toggleInList = (field, value) =>
-    setForm((f) => {
-      const list = f[field]
-      const next = list.includes(value)
-        ? list.filter((v) => v !== value)
-        : [...list, value]
-      return { ...f, [field]: next }
-    })
+  const pickDate = (date) => {
+    if (isPastDay(date)) return
+    setForm((f) => ({ ...f, selectedDate: date, selectedSlot: '' }))
+    setErrors((e) => ({ ...e, selectedDate: undefined, selectedSlot: undefined }))
+  }
+
+  const pickSlot = (slot) => {
+    setField('selectedSlot', slot)
+    setErrors((e) => ({ ...e, selectedSlot: undefined }))
+  }
 
   const validateStep = (targetStep) => {
     const next = {}
@@ -131,21 +186,13 @@ function DemoRegistrationWizard() {
       next.interestedIn = 'Pick what you\u2019re interested in learning'
     }
 
-    if (targetStep === 4 && !form.modeOfLearning) {
-      next.modeOfLearning = 'Choose Online or Offline'
-    }
-
-    if (targetStep === 5) {
-      if (form.preferredDays.length === 0) {
-        next.preferredDays = 'Pick at least one day option'
+    if (targetStep === 4) {
+      if (!form.selectedDate) {
+        next.selectedDate = 'Please pick a date'
       }
-      if (form.preferredSlots.length === 0) {
-        next.preferredSlots = 'Pick at least one time slot'
+      if (!form.selectedSlot) {
+        next.selectedSlot = 'Please pick a time slot'
       }
-    }
-
-    if (targetStep === 6 && !form.modeOfAttendance) {
-      next.modeOfAttendance = 'Choose how you\u2019d like to attend the demo'
     }
 
     setErrors(next)
@@ -164,12 +211,12 @@ function DemoRegistrationWizard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validateStep(6)) return
+    if (!validateStep(TOTAL_STEPS)) return
 
     setSubmitting(true)
     setSubmitError('')
 
-    const preferredTimings = `${form.preferredDays.join(', ')} \u2014 ${form.preferredSlots.join(', ')}`
+    const preferredTimings = `${formatDateLabel(form.selectedDate)} \u2014 ${form.selectedSlot}`
 
     try {
       await submitDemoRegistration({
@@ -179,9 +226,7 @@ function DemoRegistrationWizard() {
         background: form.background,
         experience: formatExperience(form.experience),
         interestedIn: form.interestedIn,
-        modeOfLearning: form.modeOfLearning,
         preferredTimings,
-        modeOfAttendance: form.modeOfAttendance,
       })
       setSubmitted(true)
     } catch (err) {
@@ -207,10 +252,10 @@ function DemoRegistrationWizard() {
     1: 'Your details',
     2: 'Your educational background',
     3: 'What are you interested in',
-    4: 'Mode of learning',
-    5: 'Preferred timings',
-    6: 'Mode of attendance',
+    4: 'Pick your demo slot',
   }
+
+  const availableSlots = form.selectedDate ? getSlotsForDate(form.selectedDate) : []
 
   if (submitted) {
     return (
@@ -276,7 +321,7 @@ function DemoRegistrationWizard() {
                 <input
                   id="dw-name"
                   type="text"
-                  placeholder="e.g. Spark Reddy"
+                  placeholder="e.g. Spark Sai teja"
                   value={form.name}
                   onChange={(e) => setField('name', e.target.value)}
                   aria-invalid={!!errors.name}
@@ -289,7 +334,7 @@ function DemoRegistrationWizard() {
                 <input
                   id="dw-contact"
                   type="tel"
-                  placeholder="e.g. 9876543210"
+                  placeholder="e.g. 8596******"
                   value={form.contactNo}
                   onChange={(e) => setField('contactNo', e.target.value)}
                   aria-invalid={!!errors.contactNo}
@@ -390,99 +435,82 @@ function DemoRegistrationWizard() {
           )}
 
           {step === 4 && (
-            <div>
-              <div className="option-grid option-grid--2">
-                {MODE_OF_LEARNING_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    className={`option-card ${form.modeOfLearning === opt.value ? 'is-selected' : ''}`}
-                    onClick={() => setField('modeOfLearning', opt.value)}
-                  >
-                    <span className="option-card__icon">{ICONS[opt.icon]}</span>
-                    {opt.label}
-                    <span className="option-card__hint">{opt.hint}</span>
-                  </button>
-                ))}
-              </div>
-              {errors.modeOfLearning && (
-                <p className="field__error">{errors.modeOfLearning}</p>
-              )}
-            </div>
-          )}
-
-          {step === 5 && (
-            <div className="commit-step">
-              <div className="field">
-                <label>
-                  Preferred days <span className="required">*</span>
-                </label>
-                <div className="chip-row">
-                  {PREFERRED_DAY_OPTIONS.map((day) => (
-                    <button
-                      key={day}
-                      type="button"
-                      className={`chip ${form.preferredDays.includes(day) ? 'is-selected' : ''}`}
-                      onClick={() => toggleInList('preferredDays', day)}
-                    >
-                      {day}
-                    </button>
-                  ))}
-                </div>
-                {errors.preferredDays && (
-                  <p className="field__error">{errors.preferredDays}</p>
-                )}
-              </div>
-
-              <div className="field">
-                <label>
-                  Preferred time slots <span className="required">*</span>
-                </label>
-                <div className="chip-row">
-                  {PREFERRED_TIME_SLOTS.map((slot) => (
-                    <button
-                      key={slot}
-                      type="button"
-                      className={`chip ${form.preferredSlots.includes(slot) ? 'is-selected' : ''}`}
-                      onClick={() => toggleInList('preferredSlots', slot)}
-                    >
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-                {errors.preferredSlots && (
-                  <p className="field__error">{errors.preferredSlots}</p>
-                )}
-              </div>
-            </div>
-          )}
-
-          {step === 6 && (
             <form onSubmit={handleSubmit} noValidate>
-              <div className="option-grid option-grid--2">
-                {MODE_OF_ATTENDANCE_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    className={`option-card ${form.modeOfAttendance === opt.value ? 'is-selected' : ''}`}
-                    onClick={() => setField('modeOfAttendance', opt.value)}
-                  >
-                    <span className="option-card__icon">{ICONS[opt.icon]}</span>
-                    {opt.label}
-                    <span className="option-card__hint">{opt.hint}</span>
-                  </button>
-                ))}
+              <div className="slot-step">
+                <div className="field">
+                  <label>
+                    Select a date <span className="required">*</span>
+                  </label>
+                  <div className="date-strip">
+                    {weekDates.map((date) => {
+                      const selected =
+                        form.selectedDate && isSameDay(date, form.selectedDate)
+                      const disabled = isPastDay(date)
+                      return (
+                        <button
+                          key={date.toISOString()}
+                          type="button"
+                          className={`date-chip ${selected ? 'is-selected' : ''} ${disabled ? 'is-disabled' : ''}`}
+                          disabled={disabled}
+                          onClick={() => pickDate(date)}
+                        >
+                          <span className="date-chip__day">
+                            {WEEKDAY_LABELS[(date.getDay() + 6) % 7]}
+                          </span>
+                          <span className="date-chip__num">{date.getDate()}</span>
+                          <span className="date-chip__month">
+                            {MONTH_LABELS[date.getMonth()]}
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {errors.selectedDate && (
+                    <p className="field__error">{errors.selectedDate}</p>
+                  )}
+                </div>
+
+                <div className="field">
+                  <label>
+                    Select a time slot <span className="required">*</span>
+                  </label>
+
+                  {!form.selectedDate && (
+                    <p className="slot-step__hint">Pick a date to see available slots.</p>
+                  )}
+
+                  {form.selectedDate && availableSlots.length === 0 && (
+                    <p className="slot-step__hint">
+                      No more slots left for this date \u2014 please pick another day.
+                    </p>
+                  )}
+
+                  {form.selectedDate && availableSlots.length > 0 && (
+                    <div className="chip-row">
+                      {availableSlots.map((slot) => (
+                        <button
+                          key={slot}
+                          type="button"
+                          className={`chip ${form.selectedSlot === slot ? 'is-selected' : ''}`}
+                          onClick={() => pickSlot(slot)}
+                        >
+                          {slot}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {errors.selectedSlot && (
+                    <p className="field__error">{errors.selectedSlot}</p>
+                  )}
+                </div>
               </div>
-              {errors.modeOfAttendance && (
-                <p className="field__error">{errors.modeOfAttendance}</p>
-              )}
 
               <button
                 type="submit"
                 className="btn btn-primary demo-wizard__submit"
                 disabled={submitting}
               >
-                {submitting ? 'Submitting...' : 'Submit registration \u2192'}
+                {submitting ? 'Booking...' : 'Book Slot'}
               </button>
 
               {submitError && (

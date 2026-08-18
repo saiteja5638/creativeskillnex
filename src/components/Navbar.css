@@ -40,13 +40,27 @@
   width: 38px;
   height: 38px;
   border-radius: 11px;
+  overflow: hidden;
   background: var(--grad-primary);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
   box-shadow: 0 8px 24px -6px rgba(124, 92, 255, 0.6);
+}
+
+.navbar__logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.navbar__logo-mark {
+  background: transparent;
+  box-shadow: none;
+}
+
+.navbar__logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .navbar__logo-text {

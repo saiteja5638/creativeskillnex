@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { Link } from "react-router-dom";
 import { slides } from '../data/carouselData'
 import './Carousel.css'
 
@@ -55,14 +56,14 @@ function Carousel() {
             <span className="eyebrow">{slide.eyebrow}</span>
             <h1 className="carousel__title">{slide.title}</h1>
             <p className="carousel__text">{slide.text}</p>
-            <div className="carousel__cta">
-              <a href="#find-course" className="btn btn-primary">
-                Find your course
-              </a>
-              <a href="/demo-registration" className="btn btn-ghost">
-               Register for a demo
-              </a>
-            </div>
+<div className="carousel__cta">
+  <a href="#find-course" className="btn btn-primary">
+    Find your course
+  </a>
+  <Link to="/demo-registration" className="btn btn-ghost">
+    Register for a demo
+  </Link>
+</div>
           </div>
         </div>
       ))}

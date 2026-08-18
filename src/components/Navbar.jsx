@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import logo from "/public/images/csn-logo.png";
 import './Navbar.css'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home', end: true },
   { to: '/courses', label: 'Courses' },
-   { to: '/career-finder', label: 'Career Finder' }
+  { to: '/demo-registration', label: 'Register Demo' },
+  { to: '/career', label: 'Careers' },
+  { to: '/OpportunityNexus', label: 'OpportunityNexus' },
+  { to: '/about', label: 'About' }
 ]
 
 function Navbar() {
@@ -29,49 +33,57 @@ function Navbar() {
 
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="navbar__inner container">
-        <NavLink to="/" className="navbar__logo" onClick={() => setOpen(false)}>
-          <span className="navbar__logo-mark">CSN</span>
-          <span className="navbar__logo-text">
-            CreativeSkill<span className="gradient-text">Nexus</span>
-          </span>
-        </NavLink>
+    <div className="navbar__inner container">
+  <NavLink
+    to="/"
+    className="navbar__logo"
+    onClick={() => setOpen(false)}
+  >
+    <span className="navbar__logo-mark">
+      <img src={logo} alt="CreativeSkill Nexus" />
+    </span>
 
-        <nav className="navbar__links navbar__links--desktop">
-          {NAV_LINKS.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.end}
-              className={({ isActive }) =>
-                `navbar__link ${isActive ? 'is-active' : ''}`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
+    <span className="navbar__logo-text">
+      CreativeSkill<span className="gradient-text">Nexus</span>
+    </span>
+  </NavLink>
 
-        <div className="navbar__actions navbar__actions--desktop">
-          <NavLink to="/signin" className="btn btn-ghost btn-sm">
-            Sign in
-          </NavLink>
-          <NavLink to="/signup" className="btn btn-primary btn-sm">
-            Sign up
-          </NavLink>
-        </div>
+  <nav className="navbar__links navbar__links--desktop">
+    {NAV_LINKS.map((link) => (
+      <NavLink
+        key={link.to}
+        to={link.to}
+        end={link.end}
+        className={({ isActive }) =>
+          `navbar__link ${isActive ? "is-active" : ""}`
+        }
+      >
+        {link.label}
+      </NavLink>
+    ))}
+  </nav>
 
-        <button
-          className={`navbar__burger ${open ? 'is-open' : ''}`}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
+  <div className="navbar__actions navbar__actions--desktop">
+    <NavLink to="/signin" className="btn btn-ghost btn-sm">
+      Sign in
+    </NavLink>
+
+    <NavLink to="/signup" className="btn btn-primary btn-sm">
+      Sign up
+    </NavLink>
+  </div>
+
+  <button
+    className={`navbar__burger ${open ? "is-open" : ""}`}
+    aria-label={open ? "Close menu" : "Open menu"}
+    aria-expanded={open}
+    onClick={() => setOpen((v) => !v)}
+  >
+    <span />
+    <span />
+    <span />
+  </button>
+</div>
 
       <div className={`navbar__mobile ${open ? 'is-open' : ''}`}>
         <nav className="navbar__links navbar__links--mobile">
